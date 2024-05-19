@@ -177,7 +177,11 @@ export function loopTimers(){
     // The constant by which the time is accelerated when atrack.t > 0.
     const timeAccelerationFactor = 2;
 
-    const aTimeMultiplier = atrack.t > 0 ? 1 / timeAccelerationFactor : 1;
+    let aTimeMultiplier = atrack.t > 0 ? 1 / timeAccelerationFactor : 1;
+
+    // Deploy cheating (permanent 20x speedup)
+    aTimeMultiplier = 0.05;
+
     return {
         webWorkerMainTimer,
         mainTimer: Math.ceil(webWorkerMainTimer * aTimeMultiplier),
@@ -1337,7 +1341,7 @@ export const calcPillar = (function(){
 export function challenge_multiplier(value,type,decimals,inputs){
     decimals = decimals || 0;
     inputs = inputs || {};
-    
+
     let challenge_level = inputs.genes;
     if (challenge_level === undefined){
         challenge_level = alevel() - 1;
@@ -2440,7 +2444,7 @@ export function flib(func,val,val2){
             return races[global.race.species].name;
         }
         case 'curve':
-        {   
+        {
             let exp = val2 || 1.5;
             return 1-((1-(val))**exp);
         }
